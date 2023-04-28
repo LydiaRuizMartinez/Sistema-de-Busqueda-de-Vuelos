@@ -14,30 +14,28 @@ class Arbol():
             if atributo not in nodo.diccionario:
                 print(f"EL atributo {atributo} no está en el diccionario {nodo.diccionario} de {nodo}")
                 if posicion+1>=len(self.orden):
-                    nuevo_nodo = Nodo(self.orden, None, {}, [])
+                    nuevo_nodo = Nodo(self.orden)
                 else:
-                    nuevo_nodo = Nodo(self.orden, self.orden[posicion+1], {}, [])
+                    nuevo_nodo = Nodo(self.orden, self.orden[posicion+1])
                 nodo.diccionario[atributo] = nuevo_nodo
-                print(f"DESPUES -> {nodo.diccionario}")
+                print(f"\tDESPUES -> {nodo.diccionario}")
             
             nodo = nodo.diccionario[atributo]
 
             posicion = posicion + 1
         
         nodo.vuelos.append(vuelo)
-        if len(nodo.vuelos) == 1:
-            print(nodo, nodo.vuelos)
-        return nodo
+        return nodo   # Return simplemente para las pruebas
         # si no está, la añade al diccionario con un nodo
 
         # si está, cambia al nodo del diccionario y repite el proceso
 
 class Nodo():
-    def __init__(self, orden, caracteristica = None, diccionario={}, vuelos = []):
+    def __init__(self, orden, caracteristica = None, diccionario=None, vuelos = None):
         self.orden = orden
         self.caracteristica = caracteristica   # ["origen", "destino", "compania", "cuarto"]
-        self.diccionario = diccionario
-        self.vuelos = vuelos
+        self.diccionario = {} if diccionario == None else diccionario
+        self.vuelos = [] if vuelos == None else vuelos
 
     def __repr__(self) -> str:
         return f"{self.caracteristica}"
