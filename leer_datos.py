@@ -24,8 +24,8 @@ def leer_fichero(fichero:str):
             vuelo = Vuelo(linea[5], linea[7], kilometros, linea[12], float(linea[13].strip()), int(linea[4]))
             vuelos.append(vuelo)
     
-    with open("vuelos.obj", "wb") as f:
-        pickle.dump(vuelos, f)
+    # with open("vuelos.obj", "wb") as f:
+    #     pickle.dump(vuelos, f)
     return vuelos
 
 # leer_fichero("Cleaned_2018_Flights.csv")
