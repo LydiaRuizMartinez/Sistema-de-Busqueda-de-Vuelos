@@ -1,10 +1,14 @@
 class Vuelo:
-    def __init__(self, origen, destino, kilometros, compania, precio, trimestre:int):
-        self.origen = origen
-        self.destino = destino
-        self.kilometros = kilometros
-        self.compania = compania
-        self.precio = precio
+    """
+    La clase Vuelo
+    Contiene las características de cada vuelo
+    """
+    def __init__(self, origen:str, destino:str, kilometros:float, compania:str, precio:float, trimestre:int):
+        self.origen:str = origen
+        self.destino:str = destino
+        self.kilometros:float = kilometros
+        self.compania:str = compania
+        self.precio:float = precio
         self.trimestre:int = trimestre
 
     def __repr__(self) -> str:

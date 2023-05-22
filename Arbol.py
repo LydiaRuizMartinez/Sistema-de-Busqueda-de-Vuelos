@@ -1,24 +1,33 @@
 class Arbol():
+    """
+    Clase del árbol
+    Este árbol es una estructura que sirve para guardar los vuelos que tienen las mismas características
+    """
     def __init__(self,orden:list[str]):
         self.raiz = None
         self.orden = orden
 
     def insertar_vuelo(self,vuelo):
-        if self.raiz == None:
-            self.raiz = Nodo(self.orden, self.orden[0])
+        """
+        Añade el vuelo en su correcto lugar en el árbol
+
+        Args:
+            vuelo (Vuelo): El objeto del vuelo a añadir
+        """
+        if self.raiz == None: # Se crea la raíz del nodo
+            self.raiz:Nodo = Nodo(self.orden, self.orden[0])
+
         nodo:Nodo = self.raiz
         # mira si está la caracteristica del vuelo en el diccionario del vuelo  |  ver si vuelo.origen in nodo.dict
         posicion:int = 0
-        for caracteristica in self.orden:
-            atributo = getattr(vuelo, caracteristica)   # Atributo del vuelo
+        for caracteristica in self.orden: # Recorre el árbol a partir de las características
+            atributo:str = getattr(vuelo, caracteristica)   # Atributo del vuelo
             if atributo not in nodo.diccionario:
-                print(f"EL atributo {atributo} no está en el diccionario {nodo.diccionario} de {nodo}")
-                if posicion+1>=len(self.orden):
+                if posicion + 1 >= len(self.orden): 
                     nuevo_nodo = Nodo(self.orden)
                 else:
                     nuevo_nodo = Nodo(self.orden, self.orden[posicion+1])
                 nodo.diccionario[atributo] = nuevo_nodo
-                print(f"\tDESPUES -> {nodo.diccionario}, {nodo.diccionario.values()}")
             
             nodo = nodo.diccionario[atributo]
 
@@ -26,38 +35,64 @@ class Arbol():
         
         nodo.vuelos.append(vuelo)
         return nodo   # Return simplemente para las pruebas
-        # si no está, la añade al diccionario con un nodo
 
-        # si está, cambia al nodo del diccionario y repite el proceso
 
     def mostrar(self, nodo = None, rama = ""):
-        if nodo == None:
+        """
+        Muestra la lista de vuelos de cada rama y el camino hasta ella
+
+        Args:
+            nodo (Nodo): El nodo desde el que se muestra (no poner nada para que empiece desde la raíz)
+            rama (str): La string con el camino que lleva
+        
+        Returns:
+            None
+        """
+        if nodo == None: # Coge la raíz si no se le pasa ningún nodo
             nodo = self.raiz
 
-        if nodo:
-            
+        if nodo:  # Para comprobar que el árbol no esté vacío
             for key,nodo_hijo in nodo.diccionario.items():
-                if nodo_hijo.vuelos:
-                    print(rama + "->"+str(key), ":", nodo_hijo.vuelos)
-                else:
+                if nodo_hijo.vuelos: # Si el nodo hijo tiene los vuelos, muestra la rama
+                    print(rama + "->"+str(key))
+                else: # Si el nodo hijo no tiene los vuelos, vuelve a mostrar desde él mismo
                     self.mostrar(nodo_hijo, rama +"->"+ str(key))
 
     def _get_vuelos_ramas(self, nodo, vuelos = None):
-        if vuelos == None:
+        """
+        Busca los buelos de las ramas de un nodo
+
+        Args:
+            nodo (Nodo): El nodo desde que se quiere buscar todos los vuelos
+            vuelos (list): La lista con los vuelos que ya se han añadido
+        
+        Returns:
+            vuelos (list)
+        """
+        if vuelos == None: # Se crea la lista de vuelos
             vuelos = []
-        for nodo_hijo in nodo.diccionario.values():
+
+        for nodo_hijo in nodo.diccionario.values():  # Se recorren los nodos hijos
             if nodo_hijo.vuelos:
                 vuelos += nodo_hijo.vuelos
             else:
-                self._get_vuelos_ramas(nodo_hijo, vuelos)
+                self._get_vuelos_ramas(nodo_hijo, vuelos)  # Se buscan los vuelos desde hijos del nodo
         
         return vuelos
 
     def buscar(self, filtros:list[str]):
+        """
+        Busca los vuelos según ciertos filtros
+
+        Args:
+            filtos (list): lista con los valores de las caracteristicas de los vuelos que se quieren
+        Returns:
+            vuelos (list): lista de los vuelos
+        """
         nodo = self.raiz
         i:int = 0
 
-        while i < len(filtros) and i >= 0:
+        while i < len(filtros) and i >= 0: # Recorre los nodos a partir de los filtros
             if nodo:
                 filtro = filtros[i]
                 nodo = nodo.diccionario.get(filtro, None)
@@ -70,14 +105,17 @@ class Arbol():
             return None
 
         if nodo.vuelos:  # Si tiene los vuelos, se devuelven
-            return nodo.vuelos
-        
-        vuelos =  self._get_vuelos_ramas(nodo) # Si no tiene los vuelos, devuelve todos los vuelos de las ramas de ese nodo
+            vuelos =  nodo.vuelos
+        else:
+            vuelos =  self._get_vuelos_ramas(nodo) # Si no tiene los vuelos, devuelve todos los vuelos de las ramas de ese nodo
         return vuelos
 
 
 class Nodo():
-    def __init__(self, orden:list[str], caracteristica:str = None, diccionario:dict = None, vuelos = None):
+    """
+    Es la clase de cada Nodo que forma el Árbol
+    """
+    def __init__(self, orden:list[str], caracteristica:str = None, diccionario:dict = None, vuelos:list = None):
         self.orden:list[str] = orden
         self.caracteristica:str = caracteristica   # ["origen", "destino", "compania", "trimestre"]
         self.diccionario:dict = {} if diccionario == None else diccionario
