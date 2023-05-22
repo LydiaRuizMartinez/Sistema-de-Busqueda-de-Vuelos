@@ -1,8 +1,9 @@
 from Vuelo import Vuelo
 import pickle
-def leer_fichero(fichero):
-    lines = []
-    vuelos = []
+
+def leer_fichero(fichero:str):
+
+    vuelos:list[Vuelo] = []
     with open(fichero, "r") as fh:
         keys = fh.readline()
         keys = keys.split(",")
@@ -14,9 +15,10 @@ def leer_fichero(fichero):
             linea = linea.split(",")
             print(linea)
             print(len(linea))
-            vuelo = Vuelo(linea[5], linea[7], float(linea[9]) * 1.60934, linea[12], float(linea[13].strip()))
+            kilometros = float(linea[9]) * 1.60934 # pasamos de millas a kilómetros
+            vuelo = Vuelo(linea[5], linea[7], kilometros, linea[12], float(linea[13].strip()), int(linea[4]))
             vuelos.append(vuelo)
-
+    print(vuelos)
     with open("vuelos.obj", "wb") as f:
         pickle.dump(vuelos, f)
     return vuelos
