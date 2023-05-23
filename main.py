@@ -1,6 +1,6 @@
 from Arbol import Arbol
 from leer_datos import leer_datos
-import pygame 
+import pygame
 import sys
 
 
