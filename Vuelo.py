@@ -9,7 +9,7 @@ class Vuelo:
         self.kilometros:float = kilometros
         self.compania:str = compania
         self.precio:float = precio
-        self.trimestre:int = trimestre
+        self.trimestre:str = trimestre
 
     def __repr__(self) -> str:
         return f"Vuelo(origen = {self.origen}, destino = {self.destino}, trimestre = {self.trimestre}, compañía = {self.compania}, precio = {self.precio}, km = {self.kilometros})"

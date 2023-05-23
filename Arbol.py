@@ -69,7 +69,7 @@ class Arbol():
         if nodo:  # Para comprobar que el árbol no esté vacío
             for key, nodo_hijo in nodo.diccionario.items():
                 if nodo_hijo.vuelos: # Si el nodo hijo tiene los vuelos, muestra la rama
-                    print(rama + "->"+str(key)+":", len(nodo_hijo.vuelos), "vuelos")
+                    print(rama + "->"+key+":", len(nodo_hijo.vuelos), "vuelos")
                 else: # Si el nodo hijo no tiene los vuelos, vuelve a mostrar desde él mismo
                     self.mostrar(nodo_hijo, rama +"->"+ str(key))
 
@@ -110,7 +110,8 @@ class Arbol():
         while i < len(filtros) and i >= 0: # Recorre los nodos a partir de los filtros
             if nodo:
                 filtro = filtros[i]
-                nodo = nodo.diccionario.get(filtro, None)
+                if filtro:
+                    nodo = nodo.diccionario.get(filtro, None)
                 i += 1
             else:
                 i = -1

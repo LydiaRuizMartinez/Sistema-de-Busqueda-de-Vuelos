@@ -4,18 +4,26 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GRAY = (200, 200, 200)
 LIGHT_GRAY = (220, 220, 220)
-font = pygame.font.Font(None, 28)
+
 
 class DropdownMenu:
-    def __init__(self, x, y, width, height, items, max_visible_items):
+    def __init__(self, x, y, width, height, items, max_visible_items, titulo:str, indice_filtros_array:int, font = None):
         self.rect = pygame.Rect(x, y, width, height)
         self.items = items
         self.max_visible_items = max_visible_items
         self.is_open = False
         self.selected_item = None
         self.scroll_position = 0
+        self.titulo = titulo
+        self.indice_filtros_array = indice_filtros_array
+        self.font = font if font else pygame.font.Font(None, 28)
+        
+        if self.titulo != "compania":
+            self.titulo += "*"
+        else:
+            self.titulo = "compañia"
 
-    def handle_event(self, event):
+    def handle_event(self, event, filtros_array):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if self.rect.collidepoint(event.pos):
                 self.is_open = not self.is_open
@@ -23,6 +31,8 @@ class DropdownMenu:
                 for i, item_rect in enumerate(self.item_rects):
                     if item_rect.collidepoint(event.pos):
                         self.selected_item = self.items[i + self.scroll_position]
+                        filtros_array[self.indice_filtros_array] = self.selected_item
+                        print(filtros_array)
                         self.is_open = False
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 4 and self.is_open:
             if self.scroll_position > 0:
@@ -31,16 +41,16 @@ class DropdownMenu:
             if self.scroll_position < len(self.items) - self.max_visible_items:
                 self.scroll_position += 1
 
-    def draw(self, screen):
+    def draw(self, screen, filtros_array):
         # Draw the main dropdown button
         pygame.draw.rect(screen, GRAY, self.rect)
         pygame.draw.rect(screen, BLACK, self.rect, 2)
 
         # Draw the selected item or "Choose" text
-        if self.selected_item:
-            text = font.render(self.selected_item, True, BLACK)
+        if filtros_array[self.indice_filtros_array]:
+            text = self.font.render(filtros_array[self.indice_filtros_array], True, BLACK)
         else:
-            text = font.render("Choose", True, BLACK)
+            text = self.font.render(self.titulo, True, BLACK)
         text_rect = text.get_rect(center=self.rect.center)
         screen.blit(text, text_rect)
 
@@ -57,7 +67,7 @@ class DropdownMenu:
                 item_rect = pygame.Rect(self.rect.x, self.rect.y + (i + 1) * self.rect.height + self.rect.height, self.rect.width, self.rect.height)
                 pygame.draw.rect(screen, GRAY, item_rect)
                 pygame.draw.rect(screen, BLACK, item_rect, 2)
-                item_text = font.render(item, True, BLACK)
+                item_text = self.font.render(item, True, BLACK)
                 item_text_rect = item_text.get_rect(center=item_rect.center)
                 screen.blit(item_text, item_text_rect)
                 self.item_rects.append(item_rect)
