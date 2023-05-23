@@ -37,7 +37,7 @@ if __name__ == "__main__":
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                   pass
+                    pass
                     
                 elif event.key == pygame.K_RIGHT:
                     pass
