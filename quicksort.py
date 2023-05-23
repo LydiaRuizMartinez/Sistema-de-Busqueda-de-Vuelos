@@ -1,7 +1,7 @@
 from Vuelo import Vuelo
 
 
-def divide(vuelos, iz, de):
+def divide(vuelos:list[Vuelo], iz:int, de:int) -> int:
     """
     Encuentra la posición de partición en el array
     Args:
@@ -25,7 +25,7 @@ def divide(vuelos, iz, de):
     return i + 1
 
 
-def quickSort(vuelos, iz=0, de=None):
+def quickSort(vuelos:list[Vuelo], iz:int = 0, de:int = None) -> list[Vuelo] :
     """
     Función principal que implementa el algoritmo de Quicksort
     Args:

@@ -1,7 +1,7 @@
 from Vuelo import Vuelo
 from Arbol import Arbol
 
-def leer_datos(fichero:str, arbol:Arbol):
+def leer_datos(fichero:str, arbol:Arbol) -> Arbol:
     """
     Lee el fichero con los vuelos y los inserta en el arbol
 
@@ -12,9 +12,8 @@ def leer_datos(fichero:str, arbol:Arbol):
         arbol (Arbol): el arbol con todos los vuelos metidos
     """
     with open(fichero, "r") as fh:
-        keys = fh.readline()
-        keys = keys.split(",")
-
+        # keys = fh.readline()
+        # keys = keys.split(",")
         for _ in range(1000):
         # for linea in fh:
             linea = fh.readline()

@@ -3,7 +3,7 @@ class Vuelo:
     La clase Vuelo
     Contiene las características de cada vuelo
     """
-    def __init__(self, origen:str, destino:str, kilometros:float, compania:str, precio:float, trimestre:int):
+    def __init__(self, origen:str, destino:str, kilometros:float, compania:str, precio:float, trimestre:int) -> None:
         self.origen:str = origen
         self.destino:str = destino
         self.kilometros:float = kilometros
