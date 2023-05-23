@@ -2,11 +2,13 @@ from Arbol import Arbol
 from leer_datos import leer_datos
 import pygame
 import sys
+from DropdownMenu import DropdownMenu
 
 
 if __name__ == "__main__":
-    fichero = "Cleaned_2018_Flights.csv"
-    arbol:Arbol = Arbol(["origen", "destino", "trimestre", "compania"])
+    fichero:str = "Cleaned_2018_Flights.csv"
+    caracteristicas:list[str] = ["origen", "destino", "trimestre", "compania"]
+    arbol:Arbol = Arbol()
     leer_datos(fichero, arbol)
 
     pygame.init()
@@ -15,6 +17,8 @@ if __name__ == "__main__":
     ancho = 640
     alto = 700
     screen = pygame.display.set_mode((ancho, alto))
+
+    dropdowns = [DropdownMenu(caracteristica) for caracteristica in caracteristicas]
 
     running = True
 
@@ -32,6 +36,7 @@ if __name__ == "__main__":
     pygame.draw.circle(screen, circle_color, (next_circle_x,circle_height), circle_radius, circle_width)
     pygame.draw.circle(screen, circle_color, (previous_circle_x,circle_height), circle_radius, circle_width)
     pygame.draw.circle(screen, circle_color, (pause_circle_x,circle_height), circle_radius, circle_width)
+
 
     while running:
         for event in pygame.event.get():
@@ -60,6 +65,15 @@ if __name__ == "__main__":
                 pygame.quit()
                 sys.quit()
                 running = False
+            for dropdown in dropdowns:
+                dropdown.handle_event(event)
+
+        # Clear the screen
+        screen.fill((0,0,0))
+
+        # Draw the dropdown menu
+        for dropdown in dropdowns:
+            dropdown.draw(screen)
 
     
         pygame.display.update()
