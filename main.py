@@ -1,6 +1,7 @@
 from Arbol import Arbol
 from leer_datos import leer_datos
 import pygame 
+import sys
 
 
 if __name__ == "__main__":
