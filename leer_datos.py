@@ -1,17 +1,16 @@
 from Vuelo import Vuelo
-import pickle
+from Arbol import Arbol
 
-def leer_fichero(fichero:str):
+def leer_datos(fichero:str, arbol:Arbol):
     """
-    Lee el fichero con los vuelos
+    Lee el fichero con los vuelos y los inserta en el arbol
 
     Args:
         fichero (str): el nombre del fichero
 
     Returns:
-        vuelos (list): lista con los objetos de todos los vuelos
+        arbol (Arbol): el arbol con todos los vuelos metidos
     """
-    vuelos:list[Vuelo] = []
     with open(fichero, "r") as fh:
         keys = fh.readline()
         keys = keys.split(",")
@@ -22,10 +21,6 @@ def leer_fichero(fichero:str):
             linea = linea.split(",")
             kilometros = int((float(linea[9]) * 1.61) * 100)/100 # pasamos de millas a kilómetros con 2 decimales
             vuelo = Vuelo(linea[5], linea[7], kilometros, linea[12], float(linea[13].strip()), int(linea[4]))
-            vuelos.append(vuelo)
-    
-    # with open("vuelos.obj", "wb") as f:
-    #     pickle.dump(vuelos, f)
-    return vuelos
+            arbol.insertar_vuelo(vuelo)
 
-# leer_fichero("Cleaned_2018_Flights.csv")
+    return arbol
