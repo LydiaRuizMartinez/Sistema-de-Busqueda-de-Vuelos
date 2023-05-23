@@ -45,7 +45,7 @@ if __name__ == "__main__":
     pygame.draw.circle(screen, circle_color, (pause_circle_x,circle_height), circle_radius, circle_width)
 
     filtros_array = [None for _ in range(len(caracteristicas))]
- 
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -76,7 +76,7 @@ if __name__ == "__main__":
                 dropdown.handle_event(event, filtros_array)
             lista_busqueda = search_button.handle_event(event,arbol,filtros_array)
             if lista_busqueda:
-                
+                print(f"Hay {len(lista_busqueda)} vuelos")
                 print(lista_busqueda)
 
         # Clear the screen
