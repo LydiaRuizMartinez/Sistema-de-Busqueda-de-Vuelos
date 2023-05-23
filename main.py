@@ -3,20 +3,27 @@ from leer_datos import leer_datos
 import pygame
 from DropdownMenu import DropdownMenu
 from SearchButton import SearchButton
-
+from funciones import mostrar_texto_medio
 
 if __name__ == "__main__":
-    fichero:str = "Cleaned_2018_Flights.csv"
-    caracteristicas:list[str] = ["origen", "destino", "trimestre", "compania"]
-    arbol:Arbol = Arbol(caracteristicas)
-    dict_opciones_por_caracteristica:dict = leer_datos(fichero, arbol, caracteristicas)
-
     pygame.init()
 
     # Display
     ancho = 1050
     alto = 700
-    screen = pygame.display.set_mode((ancho, alto))
+    # screen = pygame.display.set_mode((ancho, alto))
+    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    
+    mostrar_texto_medio(screen, f"Cargando Datos...")
+
+    fichero:str = "Cleaned_2018_Flights.csv"
+    caracteristicas:list[str] = ["origen", "destino", "trimestre", "compania"]
+    arbol:Arbol = Arbol(caracteristicas)
+    dict_opciones_por_caracteristica:dict = leer_datos(fichero, arbol, caracteristicas, screen)
+
+    mostrar_texto_medio(screen, "Datos Cargados")
+
+
     # DropdownMenu(x, y, width, height, items, max_visible_items)
     button_width = 225
     button_height = 50
@@ -61,6 +68,9 @@ if __name__ == "__main__":
                     #Aqui va el código de volver a la anterior
                 elif event.key == pygame.K_SPACE:
                     pass
+                elif event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 click_pos = event.pos
                 if (click_pos[0] - next_circle_x) ** 2 + (click_pos[1] - circle_height) ** 2 <= circle_radius**2:

@@ -37,10 +37,10 @@ class SearchButton:
         if self.rect.collidepoint(pygame.mouse.get_pos()):
             self.color_to_draw = "LIGHT_GRAY"
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-               if self._check_filtros(filtros_array):
+                if self._check_filtros(filtros_array):
                     vuelos =  arbol.buscar(filtros_array)
-                    for i in range(len(filtros_array)):
-                       filtros_array[i] = None
+                    # for i in range(len(filtros_array)):
+                    #     filtros_array[i] = None
                     return vuelos
         else:
             self.color_to_draw = "GRAY"

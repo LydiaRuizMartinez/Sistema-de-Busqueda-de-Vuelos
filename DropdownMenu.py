@@ -9,7 +9,7 @@ LIGHT_GRAY = (220, 220, 220)
 class DropdownMenu:
     def __init__(self, x, y, width, height, items, max_visible_items, titulo:str, indice_filtros_array:int, font = None):
         self.rect = pygame.Rect(x, y, width, height)
-        self.items = items
+        self.items = [None] + items
         self.max_visible_items = max_visible_items
         self.is_open = False
         self.selected_item = None
@@ -67,6 +67,8 @@ class DropdownMenu:
                 item_rect = pygame.Rect(self.rect.x, self.rect.y + (i + 1) * self.rect.height + self.rect.height, self.rect.width, self.rect.height)
                 pygame.draw.rect(screen, GRAY, item_rect)
                 pygame.draw.rect(screen, BLACK, item_rect, 2)
+                if not item:
+                    item = "None"
                 item_text = self.font.render(item, True, BLACK)
                 item_text_rect = item_text.get_rect(center=item_rect.center)
                 screen.blit(item_text, item_text_rect)
