@@ -4,6 +4,7 @@ import pygame
 from DropdownMenu import DropdownMenu
 from SearchButton import SearchButton
 from funciones import mostrar_texto_medio
+from quicksort import quickSort
 
 if __name__ == "__main__":
     pygame.init()
@@ -31,7 +32,8 @@ if __name__ == "__main__":
     dropdowns = []
     # dropdowns = [DropdownMenu(items = dict_opciones_por_caracteristica[caracteristicas[i]], indice_filtros_array = i, titulo = caracteristicas[i], x = 1 + 200*i, y = button_y, width = button_width, height = button_height, max_visible_items = 8) for i in range(len(caracteristicas))]
     for i in range(len(caracteristicas)):
-        dropdowns.append(DropdownMenu(items = dict_opciones_por_caracteristica[caracteristicas[i]], indice_filtros_array = i, titulo = caracteristicas[i], x = 1 + 200*i, y = button_y, width = button_width, height = button_height, max_visible_items = 8))
+        opciones_ordenadas = sorted(dict_opciones_por_caracteristica[caracteristicas[i]])
+        dropdowns.append(DropdownMenu(items = opciones_ordenadas, indice_filtros_array = i, titulo = caracteristicas[i], x = 1 + 200*i, y = button_y, width = button_width, height = button_height, max_visible_items = 8))
     search_button = SearchButton(x = 1 + 200*len(caracteristicas), y = button_y, width = button_width, height = button_height)
 
     running = True
@@ -84,10 +86,11 @@ if __name__ == "__main__":
                 running = False
             for dropdown in dropdowns:
                 dropdown.handle_event(event, filtros_array)
+            
             lista_busqueda = search_button.handle_event(event,arbol,filtros_array)
             if lista_busqueda:
                 print(f"Hay {len(lista_busqueda)} vuelos")
-                print(lista_busqueda)
+                print(quickSort(lista_busqueda))
 
         # Clear the screen
         screen.fill((0,0,0))
