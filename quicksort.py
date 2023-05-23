@@ -33,6 +33,9 @@ def quickSort(vuelos:list[Vuelo], iz:int = 0, de:int = None) -> list[Vuelo] :
         iz: El índice izquierdo
         de: El índice derecho
     """
+    if not vuelos: # Por si no hay vuelos
+        return
+    
     if de == None:
         de = len(vuelos)-1
         
