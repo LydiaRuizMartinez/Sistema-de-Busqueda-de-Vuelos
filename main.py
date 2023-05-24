@@ -28,13 +28,14 @@ def main():
     # DropdownMenu(x, y, width, height, items, max_visible_items)
     button_width = 225
     button_height = 50
-    button_y = 10
-    dropdowns = []
+    button_y = 50
+    dropdowns:list[DropdownMenu] = []
+    padding:int = (screen.get_width() - button_width*(len(caracteristicas) + 1)) // 2
     # dropdowns = [DropdownMenu(items = dict_opciones_por_caracteristica[caracteristicas[i]], indice_filtros_array = i, titulo = caracteristicas[i], x = 1 + 200*i, y = button_y, width = button_width, height = button_height, max_visible_items = 8) for i in range(len(caracteristicas))]
     for i in range(len(caracteristicas)):
         opciones_ordenadas = sorted(dict_opciones_por_caracteristica[caracteristicas[i]])
-        dropdowns.append(DropdownMenu(items = opciones_ordenadas, indice_filtros_array = i, titulo = caracteristicas[i], x = 1 + 200*i, y = button_y, width = button_width, height = button_height, max_visible_items = 8))
-    search_button = SearchButton(x = 1 + 200*len(caracteristicas), y = button_y, width = button_width, height = button_height)
+        dropdowns.append(DropdownMenu(items = opciones_ordenadas, indice_filtros_array = i, titulo = caracteristicas[i], x = padding + button_width*i, y = button_y, width = button_width, height = button_height, max_visible_items = 8))
+    search_button = SearchButton(x = padding + button_width*len(caracteristicas), y = button_y, width = button_width, height = button_height)
 
     running = True
 

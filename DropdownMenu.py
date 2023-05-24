@@ -1,10 +1,5 @@
 import pygame
 
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-GRAY = (200, 200, 200)
-LIGHT_GRAY = (220, 220, 220)
-
 
 class DropdownMenu:
     def __init__(self, x, y, width, height, items, max_visible_items, titulo:str, indice_filtros_array:int, font = None):
@@ -23,6 +18,15 @@ class DropdownMenu:
         else:
             self.titulo = "compañia"
 
+        self.colors = {
+        'BLACK' : (0, 0, 0),
+        'WHITE' : (255, 255, 255),
+        'GRAY' : (200, 200, 200),
+        'LIGHT_GRAY' : (220, 220, 220)
+        }
+
+        self.color_to_draw = "GRAY"
+
     def handle_event(self, event, filtros_array):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if self.rect.collidepoint(event.pos):
@@ -40,17 +44,21 @@ class DropdownMenu:
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 5 and self.is_open:
             if self.scroll_position < len(self.items) - self.max_visible_items:
                 self.scroll_position += 1
+        if self.rect.collidepoint(pygame.mouse.get_pos()):
+            self.color_to_draw = "LIGHT_GRAY"
+        else:
+            self.color_to_draw = "GRAY"
 
     def draw(self, screen, filtros_array):
         # Draw the main dropdown button
-        pygame.draw.rect(screen, GRAY, self.rect)
-        pygame.draw.rect(screen, BLACK, self.rect, 2)
+        pygame.draw.rect(screen, self.colors[self.color_to_draw], self.rect)
+        pygame.draw.rect(screen, self.colors["BLACK"], self.rect, 2)
 
         # Draw the selected item or "Choose" text
         if filtros_array[self.indice_filtros_array]:
-            text = self.font.render(filtros_array[self.indice_filtros_array], True, BLACK)
+            text = self.font.render(filtros_array[self.indice_filtros_array], True, self.colors["BLACK"])
         else:
-            text = self.font.render(self.titulo, True, BLACK)
+            text = self.font.render(self.titulo, True, self.colors["BLACK"])
         text_rect = text.get_rect(center=self.rect.center)
         screen.blit(text, text_rect)
 
@@ -59,17 +67,17 @@ class DropdownMenu:
             visible_items = self.items[self.scroll_position : self.scroll_position + self.max_visible_items]
             dropdown_height = self.rect.height * (self.max_visible_items + 1)
             dropdown_rect = pygame.Rect(self.rect.x, self.rect.y + self.rect.height, self.rect.width, dropdown_height)
-            pygame.draw.rect(screen, LIGHT_GRAY, dropdown_rect)
-            pygame.draw.rect(screen, BLACK, dropdown_rect, 2)
+            pygame.draw.rect(screen, self.colors["LIGHT_GRAY"], dropdown_rect)
+            pygame.draw.rect(screen, self.colors["BLACK"], dropdown_rect, 2)
 
             self.item_rects = []
             for i, item in enumerate(visible_items):
                 item_rect = pygame.Rect(self.rect.x, self.rect.y + (i + 1) * self.rect.height + self.rect.height, self.rect.width, self.rect.height)
-                pygame.draw.rect(screen, GRAY, item_rect)
-                pygame.draw.rect(screen, BLACK, item_rect, 2)
+                pygame.draw.rect(screen, self.colors["GRAY"], item_rect)
+                pygame.draw.rect(screen, self.colors["BLACK"], item_rect, 2)
                 if not item:
                     item = "None"
-                item_text = self.font.render(item, True, BLACK)
+                item_text = self.font.render(item, True, self.colors["BLACK"])
                 item_text_rect = item_text.get_rect(center=item_rect.center)
                 screen.blit(item_text, item_text_rect)
                 self.item_rects.append(item_rect)
@@ -77,11 +85,11 @@ class DropdownMenu:
             # Draw scrollbar
             scrollbar_x = self.rect.x + self.rect.width - 10
             scrollbar_rect = pygame.Rect(scrollbar_x, self.rect.y + self.rect.height + 1, 10, dropdown_height - 2)
-            pygame.draw.rect(screen, GRAY, scrollbar_rect)
-            pygame.draw.rect(screen, BLACK, scrollbar_rect, 2)
+            pygame.draw.rect(screen, self.colors["GRAY"], scrollbar_rect)
+            pygame.draw.rect(screen, self.colors["BLACK"], scrollbar_rect, 2)
 
             # Calculate the scrollbar thumb position and height
             thumb_height = dropdown_height / len(self.items) * self.max_visible_items
             thumb_position = dropdown_rect.y + (self.scroll_position / len(self.items)) * (dropdown_height - thumb_height)
             thumb_rect = pygame.Rect(scrollbar_x + 2, thumb_position, 6, thumb_height)
-            pygame.draw.rect(screen, BLACK, thumb_rect)
+            pygame.draw.rect(screen, self.colors["BLACK"], thumb_rect)
