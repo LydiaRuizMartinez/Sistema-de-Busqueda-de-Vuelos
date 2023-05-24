@@ -26,6 +26,9 @@ class SearchButton:
         screen.blit(text, text_rect)
 
     def _check_filtros(self, filtros_array):
+        """
+        Comprueba que estén puestos los filtros obligatorios
+        """
         N = len(filtros_array)
         i = 0
         while i < N - 1: # El último elemento es optativo
@@ -36,12 +39,15 @@ class SearchButton:
 
 
     def handle_event(self, event, arbol, filtros_array, mensaje_error, carta_vuelo) -> ListaDoble:
+        """
+        Funcionalidad de cuando se pulsa la búsqueda. Comprueba que estén bien los filtros y busca en el árbol en base a estos
+        """
         if self.rect.collidepoint(pygame.mouse.get_pos()):
             self.color_to_draw = "LIGHT_GRAY"
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                if self._check_filtros(filtros_array):
+                if self._check_filtros(filtros_array): # Si los filtros están correctos
                     vuelos, msg_error = arbol.buscar(filtros_array)
-                    quickSort(vuelos)
+                    quickSort(vuelos) # Ordena los vuelos según el precio
                     mensaje_error.set_msg(msg_error)
                     if not vuelos:
                         carta_vuelo.set_vuelos(None)

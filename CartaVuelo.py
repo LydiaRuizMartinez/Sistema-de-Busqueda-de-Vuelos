@@ -4,7 +4,7 @@ from ListaDoble import ListaDoble, NodoLista
 
 class CartaVuelo:
 
-    def __init__(self, x, y, width, height, vuelos: ListaDoble = None, font=None) -> None:
+    def __init__(self, x:int, y:int, width:int, height:int, vuelos: ListaDoble = None, font = None) -> None:
         self.rect = pygame.Rect(x, y, width, height)
         self.font = font if font else pygame.font.Font(None, 45)
         self.colors = {
@@ -18,10 +18,13 @@ class CartaVuelo:
         self.set_vuelos(vuelos)
 
     def set_vuelos(self, vuelos):
-        self.vuelos = vuelos
+        self.vuelos:ListaDoble = vuelos
         self.first_vuelo()
 
     def first_vuelo(self):
+        """
+        Coloca el puntero de nodo_vuelo en el primer vuelo de la lista
+        """
         if self.vuelos:
             self.nodo_vuelo: NodoLista = self.vuelos.head
         else:
@@ -36,7 +39,10 @@ class CartaVuelo:
     def prev_vuelo(self):
         self.nodo_vuelo = self.nodo_vuelo.prev
 
-    def draw(self, screen):
+    def draw(self, screen) -> None:
+        """
+        Dibuja la información del vuelo
+        """
         pygame.draw.rect(screen, self.colors["BLUE"], self.rect)
 
         x, y = self.rect.center

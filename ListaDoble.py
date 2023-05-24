@@ -26,6 +26,12 @@ class ListaDoble:
         self.n_nodos = 0
 
     def insertar_vuelo(self, vuelo: Vuelo) -> None:
+        """
+        Inserta el vuelo al final de la lista
+
+        Args:
+            vuelo (Vuelo): el vuelo a insertar
+        """
         self.n_nodos += 1
         nodo_vuelo = NodoLista(vuelo, self.n_nodos)
         if self.head == None:

@@ -2,7 +2,7 @@ import pygame
 
 
 class DropdownMenu:
-    def __init__(self, x, y, width, height, items, max_visible_items, titulo: str, indice_filtros_array: int, font=None):
+    def __init__(self, x:int, y:int, width:int, height:int, items:list, max_visible_items:int, titulo: str, indice_filtros_array: int, font=None) -> None:
         self.rect = pygame.Rect(x, y, width, height)
         self.items = [None] + items
         self.max_visible_items = max_visible_items
@@ -28,6 +28,9 @@ class DropdownMenu:
         self.color_to_draw = "GRAY"
 
     def handle_event(self, event, filtros_array):
+        """
+        Comprueba los clicks en el menu
+        """
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if self.rect.collidepoint(event.pos):
                 self.is_open = not self.is_open
@@ -50,7 +53,10 @@ class DropdownMenu:
         else:
             self.color_to_draw = "GRAY"
 
-    def draw(self, screen, filtros_array):
+    def draw(self, screen, filtros_array) -> None:
+        """
+        Lo dibuja
+        """
         # Dibuja el botón principal de dropdown 
         pygame.draw.rect(screen, self.colors[self.color_to_draw], self.rect)
         pygame.draw.rect(screen, self.colors["BLACK"], self.rect, 2)
