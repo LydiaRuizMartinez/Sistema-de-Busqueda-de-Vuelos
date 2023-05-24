@@ -6,7 +6,7 @@ import time
 
 def data_reader(fh):
     keys = fh.readline()  # Para saltarnos la primera linea
-    N = 5_000_000
+    N = 500_000
     for _ in range(N):
         # for linea in fh:
         linea = fh.readline()
@@ -62,7 +62,7 @@ def leer_datos(fichero: str, arbol: Arbol, caracteristicas: list[str], screen=No
 
             if screen != None and j % 500_000 == 0:
                 mostrar_texto_medio(
-                    screen, f"Cargando 9.534.417 de vuelos... {j/9_534_417:.02%}")
+                    screen, f"Cargando 9.534.417 vuelos... {j/9_534_417:.02%}")
 
             j += 1
 
