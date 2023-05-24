@@ -6,7 +6,7 @@ from SearchButton import SearchButton
 from funciones import mostrar_texto_medio
 from quicksort import quickSort
 
-if __name__ == "__main__":
+def main():
     pygame.init()
 
     # Display
@@ -71,8 +71,7 @@ if __name__ == "__main__":
                 elif event.key == pygame.K_SPACE:
                     pass
                 elif event.key == pygame.K_ESCAPE:
-                    pygame.quit()
-                    running = False
+                    return
             if event.type == pygame.MOUSEBUTTONDOWN:
                 click_pos = event.pos
                 if (click_pos[0] - next_circle_x) ** 2 + (click_pos[1] - circle_height) ** 2 <= circle_radius**2:
@@ -82,8 +81,7 @@ if __name__ == "__main__":
                 elif (click_pos[0] - pause_circle_x) ** 2 + (click_pos[1] - circle_height) ** 2 <= circle_radius**2:
                     pass
             if event.type == pygame.QUIT:
-                pygame.quit()
-                running = False
+                return
             for dropdown in dropdowns:
                 dropdown.handle_event(event, filtros_array)
             
@@ -103,3 +101,7 @@ if __name__ == "__main__":
 
     
         pygame.display.update()
+
+
+if __name__ == "__main__":
+    main()

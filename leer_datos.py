@@ -4,7 +4,11 @@ from funciones import mostrar_texto_medio
 import time
 
 def data_reader(fh):
-    for linea in fh:
+    keys = fh.readline()  # Para saltarnos la primera linea
+    N = 10000
+    for _ in range(N):
+    # for linea in fh:
+        linea = fh.readline()
         linea = linea.split(",")
         kilometros = int((float(linea[9]) * 1.61) * 100)/100 # pasamos de millas a kilómetros con 2 decimales
         # origen = linea[5]
@@ -33,7 +37,7 @@ def leer_datos(fichero:str, arbol:Arbol, caracteristicas:list[str], screen = Non
         dict_opciones_por_caracteristica[caracteristica] = []
     j = 1
     with open(fichero, "r") as fh:
-        keys = fh.readline()
+        
         # keys = keys.split(",")
         # for _ in range(N):
         for vuelo in data_reader(fh):

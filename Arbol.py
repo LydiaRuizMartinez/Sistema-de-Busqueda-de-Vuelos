@@ -108,10 +108,10 @@ class Arbol():
         i:int = 0
 
         while i < len(filtros) and i >= 0: # Recorre los nodos a partir de los filtros
+            filtro = filtros[i]
+            if filtro:
+                nodo = nodo.diccionario.get(filtro, None)
             if nodo:
-                filtro = filtros[i]
-                if filtro:
-                    nodo = nodo.diccionario.get(filtro, None)
                 i += 1
             else:
                 i = -1
