@@ -107,17 +107,16 @@ def main():
                 elif (click_pos[0] - previous_circle_x) ** 2 + (click_pos[1] - circle_height) ** 2 <= circle_radius**2:
                     if carta_vuelo.vuelos:
                         carta_vuelo.prev_vuelo()
-                # elif (click_pos[0] - pause_circle_x) ** 2 + (click_pos[1] - circle_height) ** 2 <= circle_radius**2:
-                #     pass
+            
             if event.type == pygame.QUIT:
                 return
             for dropdown in dropdowns:
                 dropdown.handle_event(event, filtros_array)
             
-            lista_busqueda = search_button.handle_event(event,arbol,filtros_array, mensaje_error)
-            if lista_busqueda:
-                carta_vuelo.set_vuelos(lista_busqueda)
-                lista_busqueda = None
+            lista_busqueda_nueva = search_button.handle_event(event,arbol,filtros_array, mensaje_error, carta_vuelo)
+            # if lista_busqueda != lista_busqueda_nueva:
+            #     carta_vuelo.set_vuelos(lista_busqueda)
+            #     lista_busqueda = lista_busqueda_nueva
 
 
         screen.blit(imp, (0, 0))
@@ -141,8 +140,7 @@ def main():
         search_button.draw(screen)
         
         # pygame.draw.circle(screen, circle_color, (pause_circle_x,circle_height), circle_radius, circle_width)
-
-    
+        
         pygame.display.update()
 
 

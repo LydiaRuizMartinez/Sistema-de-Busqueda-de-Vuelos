@@ -35,7 +35,7 @@ class SearchButton:
         return True
 
 
-    def handle_event(self, event, arbol, filtros_array, mensaje_error) -> ListaDoble:
+    def handle_event(self, event, arbol, filtros_array, mensaje_error, carta_vuelo) -> ListaDoble:
         if self.rect.collidepoint(pygame.mouse.get_pos()):
             self.color_to_draw = "LIGHT_GRAY"
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
@@ -44,14 +44,15 @@ class SearchButton:
                     quickSort(vuelos)
                     mensaje_error.set_msg(msg_error)
                     if not vuelos:
-                        return None
+                        carta_vuelo.set_vuelos(None)
+                        return
                     lista = ListaDoble()
                     for vuelo in vuelos:
                         lista.insertar_vuelo(vuelo)
-                    return lista
+                    carta_vuelo.set_vuelos(lista)
                 else:
                     mensaje_error.set_msg("Debe rellenar todos los campos obligatorios")
-                    return None
+                    carta_vuelo.set_vuelos(None)
         else:
             self.color_to_draw = "GRAY"
 
