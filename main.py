@@ -31,14 +31,14 @@ def main():
     imp = pygame.image.load("fondo.jpg").convert()
     
 
-    mostrar_texto_medio(screen, f"Cargando Datos...")
+    mostrar_texto_medio(screen, f"Cargando 9.534.417 de vuelos...")
 
     fichero:str = "Cleaned_2018_Flights.csv"
     caracteristicas:list[str] = ["origen", "destino", "trimestre", "compania"]
     arbol:Arbol = Arbol(caracteristicas)
     dict_opciones_por_caracteristica:dict = leer_datos(fichero, arbol, caracteristicas, screen)
 
-    mostrar_texto_medio(screen, "Datos Cargados")
+    mostrar_texto_medio(screen, "Vuelos Cargados")
 
 
     # DropdownMenu(x, y, width, height, items, max_visible_items)
@@ -113,10 +113,7 @@ def main():
             for dropdown in dropdowns:
                 dropdown.handle_event(event, filtros_array)
             
-            lista_busqueda_nueva = search_button.handle_event(event,arbol,filtros_array, mensaje_error, carta_vuelo)
-            # if lista_busqueda != lista_busqueda_nueva:
-            #     carta_vuelo.set_vuelos(lista_busqueda)
-            #     lista_busqueda = lista_busqueda_nueva
+            search_button.handle_event(event,arbol,filtros_array, mensaje_error, carta_vuelo)
 
 
         screen.blit(imp, (0, 0))
