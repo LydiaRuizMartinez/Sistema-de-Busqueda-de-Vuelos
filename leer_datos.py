@@ -5,7 +5,7 @@ import time
 
 def data_reader(fh):
     keys = fh.readline()  # Para saltarnos la primera linea
-    N = 10000
+    N = 500_000
     for _ in range(N):
     # for linea in fh:
         linea = fh.readline()
@@ -29,8 +29,6 @@ def leer_datos(fichero:str, arbol:Arbol, caracteristicas:list[str], screen = Non
         dict_opciones_por_caracteristica (dict): diccionario que guarda todos los posibles valores que puede tomar cada característica
     """
     print("LEYENDO DATOS", end="")
-    if N == None:
-        N = 10000
 
     dict_opciones_por_caracteristica:dict = {}
     for caracteristica in caracteristicas:

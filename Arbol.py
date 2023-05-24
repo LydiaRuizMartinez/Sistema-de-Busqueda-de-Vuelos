@@ -106,9 +106,9 @@ class Arbol():
         """
         nodo = self.raiz
         i:int = 0
-
         while i < len(filtros) and i >= 0: # Recorre los nodos a partir de los filtros
             filtro = filtros[i]
+            caracteristica = nodo.caracteristica
             if filtro:
                 nodo = nodo.diccionario.get(filtro, None)
             if nodo:
@@ -117,11 +117,11 @@ class Arbol():
                 i = -1
         
         if i == -1:
-            print(f"No hay ningún vuelo con {filtro}")
-            return None
+            mensaje = f"No hay ningún vuelo con esas características"
+            return None, mensaje
 
         if nodo.vuelos:  # Si tiene los vuelos, se devuelven
             vuelos =  nodo.vuelos
         else:
             vuelos =  self._get_vuelos_ramas(nodo) # Si no tiene los vuelos, devuelve todos los vuelos de las ramas de ese nodo
-        return vuelos
+        return vuelos, ""

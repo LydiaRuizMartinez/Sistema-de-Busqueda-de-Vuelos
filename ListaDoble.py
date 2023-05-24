@@ -1,9 +1,13 @@
 from Vuelo import Vuelo
 class NodoLista:
-    def __init__(self, vuelo:Vuelo) -> None:
+    def __init__(self, vuelo:Vuelo, id:int) -> None:
         self.vuelo:Vuelo = vuelo
         self.next:NodoLista = None
         self.prev:NodoLista = None
+        self.id:int = id
+    
+    def get_id(self):
+        return self.id
     
     def __repr__(self) -> str:
         return f"vuelo: {self.vuelo}"
@@ -16,8 +20,11 @@ class ListaDoble:
     def __init__(self) -> None:
         self.head:NodoLista = None
         self.tail:NodoLista = None
+        self.n_nodos = 0
 
-    def insertar_vuelo(self, nodo_vuelo:NodoLista) -> None:
+    def insertar_vuelo(self, vuelo:Vuelo) -> None:
+        self.n_nodos += 1
+        nodo_vuelo = NodoLista(vuelo, self.n_nodos)
         if self.head == None:
             self.head = nodo_vuelo
             self.tail = nodo_vuelo
@@ -27,6 +34,7 @@ class ListaDoble:
             self.tail.next = nodo_vuelo
             self.head.prev = nodo_vuelo
             self.tail = nodo_vuelo
+
 
     def RecorrerListaCabeza(self) -> None:
         print("RECORRIDO DE LISTA DESDE LA CABEZA: ")
@@ -40,12 +48,3 @@ class ListaDoble:
                     aux = False
                 else:
                     aux = aux.next
-
-
-
-lista = ListaDoble()
-for i in [2,1,4,5]:
-    lista.insertar_vuelo(NodoLista(i))
-
-lista.RecorrerListaCabeza()
-print(lista.head, lista.tail)
