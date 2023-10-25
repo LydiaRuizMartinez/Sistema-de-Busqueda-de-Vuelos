@@ -6,10 +6,10 @@ Con el fin de optimizar la eficiencia del proyecto, se ha hecho uso de algoritmo
 
 ### Desarrollo
 Este proyecto consta de los siguientes elementos de desarrollo de software:
-o 745 líneas de código.
-o 10 módulos.
-o 38 funciones.
-o 9 clases.
-o 1 fichero de datos.
-o Librería:
-  ▪ pygame
+- 745 líneas de código.
+- 10 módulos.
+- 38 funciones.
+- 9 clases.
+- 1 fichero de datos.
+- Librería:
+  - pygame
