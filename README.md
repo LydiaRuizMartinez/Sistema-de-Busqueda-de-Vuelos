@@ -14,3 +14,6 @@ Este proyecto consta de los siguientes elementos de desarrollo de software:
 - 1 fichero de datos.
 - Librería:
   - pygame
+    
+### Colaborador:
+[@JorgeVanco](https://github.com/JorgeVanco)
